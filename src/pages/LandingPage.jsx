@@ -379,7 +379,20 @@ export default function LandingPage() {
 
                             <div>
                                 <h3>Instant</h3>
-                                <p>OTP Delivery</p>
+                                <p>SMS & Logs</p>
+                            </div>
+
+                        </div>
+
+                        <div className="stat">
+
+                            <div className="icon">
+                                <FiMessageSquare />
+                            </div>
+
+                            <div>
+                                <h3>Digital</h3>
+                                <p>Gift Sending</p>
                             </div>
 
                         </div>
