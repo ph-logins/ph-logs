@@ -6,7 +6,7 @@
 
 :root {
   --bg: #000000;
-  --card: rgba(11, 19, 37, 0.85);
+  --card:rgba(0, 0, 0, 0.85);
   --border: rgba(255, 255, 255, 0.08);
 
   --purple: #7c5cff;
