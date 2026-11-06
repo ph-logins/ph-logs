@@ -315,11 +315,11 @@ export default function LandingPage() {
                     </div>
 
                     <h1>
-                        Buy Virtual Phone Numbers
+                        Virtual Numbers, Social Media Logs
                         <br />
-                        for OTP Verification
+                        & Digital Gift Sending
                         <br />
-                        <span>in 100+ Countries</span>
+                        <span>All in One Place</span>
                     </h1>
 
                     <p>
