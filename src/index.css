@@ -1,8 +1,8 @@
 :root {
   /* Dark Theme (Default) */
   --bg: #000000;
-  --card: #000000;
-  --card-secondary: #000000;
+  --card: #080d1b;
+  --card-secondary: #050a14;
 
   /* Text */
   --text: #ffffff;
