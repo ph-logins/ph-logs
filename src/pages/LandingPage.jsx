@@ -311,7 +311,7 @@ export default function LandingPage() {
                 >
 
                     <div className="hero-badge">
-                        Virtual Numbers for SMS Verification
+                        Virtual numbers, Social media logs & Gifts
                     </div>
 
                     <h1>
@@ -323,13 +323,12 @@ export default function LandingPage() {
                     </h1>
 
                     <p>
-                        Numio provides instant virtual phone numbers
-                        for SMS verification, OTP activation, and online
-                        account verification across 100+ countries.
-                        Fast delivery, secure payments, affordable pricing,
-                        and reliable SMS reception for WhatsApp, Telegram,
-                        Google, Facebook, TikTok, Discord, Binance, and thousands
-                        of other services.
+                        PH Logs is your all-in-one platform for virtual numbers, social media logs, and digital gift sending. 
+                        Access virtual phone numbers across 100+ countries for SMS verification, OTP activation, and secure online 
+                        registrations. Get reliable social media account solutions, send gifts to friends and loved ones, and enjoy a 
+                        seamless experience with fast delivery, secure payments, and affordable pricing. Whether you're activating 
+                        WhatsApp, Telegram, Google, Facebook, TikTok, Discord, Binance, or thousands of other services, PH Logs makes 
+                        everything simple, fast, and reliable.
                     </p>
 
                     <div className="hero-buttons">
