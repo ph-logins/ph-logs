@@ -647,7 +647,7 @@
 
     border-radius: 50%;
 
-    background: rgba(124,58,237,.12);
+    background: var(--primary-bg);
     color: var(--primary);
 
     font-size: 26px;
