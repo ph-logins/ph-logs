@@ -292,7 +292,7 @@
 }
 
 .price-box {
-  background: var(--card-secondary);
+  background: var(--card);
 
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -429,7 +429,7 @@
 
 .number-card,
 .sms-cards {
-  background: var(--card-secondary);
+  background: var(--card);
 
   border: 1px solid var(--border);
   border-radius: 12px;
