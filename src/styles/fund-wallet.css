@@ -276,7 +276,7 @@
 }
 
 .wallet-gateway-card.active {
-    background: rgba(124, 58, 237, 0.12);
+    background: var(--primary-bg) ;
 
     border-color: var(--primary);
 }
