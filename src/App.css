@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-:root {
+/* :root {
   --bg: #000000;
   --card: rgba(11, 19, 37, 0.85);
   --border: rgba(255, 255, 255, 0.08);
@@ -14,7 +14,7 @@
 
   --text: #ffffff;
   --muted: #9ca3af;
-}
+} */
 
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
