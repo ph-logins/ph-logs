@@ -509,7 +509,7 @@
   padding: 0 14px;
 
   border-radius: 6px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
 
   background: transparent;
   color: var(--text);
