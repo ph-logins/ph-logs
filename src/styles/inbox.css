@@ -406,7 +406,7 @@ body.light-theme .skeleton::after {
     align-items:center;
     justify-content:center;
 
-    background:rgba(124,58,237,.12);
+    background:var(--primary-bg);
     color:var(--primary);
 
     font-size:32px;
@@ -441,7 +441,7 @@ body.light-theme .skeleton::after {
 
     border-radius:999px;
 
-    background:rgba(124,58,237,.12);
+    background:var(--primary-bg);
     color:var(--primary);
 
     font-size:12px;
