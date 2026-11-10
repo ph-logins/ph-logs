@@ -361,19 +361,6 @@ export default function LandingPage() {
                         <div className="stat">
 
                             <div className="icon">
-                                <FiGlobe />
-                            </div>
-
-                            <div>
-                                <h3>100+</h3>
-                                <p>Countries</p>
-                            </div>
-
-                        </div>
-
-                        <div className="stat">
-
-                            <div className="icon">
                                 <FiMessageSquare />
                             </div>
 
