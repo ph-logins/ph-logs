@@ -13,10 +13,6 @@ import {
 } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-// import logoFavicon from "../assets/logo-favicon.png";
-// import logoLightText from "../assets/logo-light-text.png";
-// import logoDarkText from "../assets/logo-dark-text.png";
-
 import "../styles/auth.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
