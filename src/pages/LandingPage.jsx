@@ -1204,7 +1204,7 @@ FOOTER
                 >
 
                     <p>
-                        © {new Date().getFullYear()} Numio. All rights reserved.
+                        © {new Date().getFullYear()} PH Logs. All rights reserved.
                     </p>
 
                 </motion.div>
