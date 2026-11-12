@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
-  FaBell,
+  FaShoppingCart,
   FaWallet,
   FaBars,
 } from "react-icons/fa";
@@ -109,7 +109,7 @@ const Topbar = ({ setSidebarOpen }) => {
           <FaWallet />
         </div>
 
-        <FaBell className="top-icon" />
+        <FaShoppingCart className="top-icon" />
       </div>
     </header>
   );
