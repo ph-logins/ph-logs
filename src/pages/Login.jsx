@@ -104,6 +104,9 @@ export default function Login() {
     <div className="auth-page">
       <div className="bg-glow"></div>
 
+      <div className="auth-card">
+        
+
         <div className="auth-content">
           <h2>Welcome Back</h2>
 
