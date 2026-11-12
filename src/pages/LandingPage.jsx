@@ -428,13 +428,14 @@ SERVICES
                     </span>
 
                     <h2>
-                        Everything you need for SMS Verification
+                        Everything You Need for Virtual Numbers, Social Media Logs & Digital Gifts
                     </h2>
 
                     <p>
-                        Purchase virtual phone numbers for OTP verification from more than 100 countries.
-                        Receive SMS verification codes instantly for popular online services using our
-                        fast and reliable platform.
+                        Get access to virtual phone numbers, social media accounts, and digital gifts all in one place.
+                        Whether you need numbers for SMS verification, social media logs for your favorite platforms, or 
+                        digital gifts to send and share, our fast, secure, and reliable platform makes it easy to get everything 
+                        you need.
                     </p>
 
                 </div>
