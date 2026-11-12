@@ -12,11 +12,11 @@ import {
     FaWallet,
     FaShoppingBag,
     FaExchangeAlt,
-    FaHeadset,
     FaUserCircle,
     FaChevronDown,
     FaCog,
     FaSignOutAlt,
+    FaGift,
 } from "react-icons/fa";
 
 import "../styles/sidebar.css";
@@ -207,6 +207,17 @@ const Sidebar = ({
                     </NavLink>
 
                     <NavLink
+                        to="/gift"
+                        className={({ isActive }) =>
+                            isActive ? "menu-item active" : "menu-item"
+                        }
+                        onClick={() => setSidebarOpen(false)}
+                    >
+                        <FaGift />
+                        Gift
+                    </NavLink>
+
+                    <NavLink
                         to="/fund-wallet"
                         className={({ isActive }) =>
                             isActive ? "menu-item active" : "menu-item"
@@ -237,17 +248,6 @@ const Sidebar = ({
                     >
                         <FaExchangeAlt />
                         Transactions
-                    </NavLink>
-
-                    <NavLink
-                        to="/support"
-                        className={({ isActive }) =>
-                            isActive ? "menu-item active" : "menu-item"
-                        }
-                        onClick={() => setSidebarOpen(false)}
-                    >
-                        <FaHeadset />
-                        Support
                     </NavLink>
                 </nav>
 
