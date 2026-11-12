@@ -488,6 +488,50 @@ SERVICES
 
                     </motion.div>
 
+                    <motion.div
+                        className="landing-service-card"
+                        whileHover={{ y: -8 }}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+
+                        <div className="landing-service-icon">
+                            <FiPhone />
+                        </div>
+
+                        <h3>Social Media Logs</h3>
+
+                        <p>
+                            Get access to social media logs for popular platforms like Facebook, Instagram, TikTok, 
+                            and more. Explore a wide range of account options through our fast, secure, and reliable platform.
+                        </p>
+
+                    </motion.div>
+
+                    <motion.div
+                        className="landing-service-card"
+                        whileHover={{ y: -8 }}
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+
+                        <div className="landing-service-icon landing-service-icon-purple">
+                            <FiMessageCircle />
+                        </div>
+
+                        <h3>Digital Gift Delivery</h3>
+
+                        <p>
+                            Send digital gifts worldwide with ease. Explore a variety of gift options and enjoy fast, secure, and reliable 
+                            delivery across the globe, making it simple to surprise friends, family, or anyone special, wherever they are.
+                        </p>
+
+                    </motion.div>
+
                 </div>
 
             </motion.section>
