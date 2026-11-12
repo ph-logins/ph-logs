@@ -107,9 +107,7 @@ export default function Login() {
           <h2>Welcome Back</h2>
 
           <p className="auth-subtitle">
-            Sign in to access your virtual
-            numbers, SMS inbox and account
-            dashboard.
+            Sign in to explore virtual numbers, access social media logs, send digital gifts, and manage your account.
           </p>
 
           {error && (
