@@ -13,9 +13,9 @@ import {
 } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-import logoFavicon from "../assets/logo-favicon.png";
-import logoLightText from "../assets/logo-light-text.png";
-import logoDarkText from "../assets/logo-dark-text.png";
+// import logoFavicon from "../assets/logo-favicon.png";
+// import logoLightText from "../assets/logo-light-text.png";
+// import logoDarkText from "../assets/logo-dark-text.png";
 
 import "../styles/auth.css";
 
@@ -103,32 +103,6 @@ export default function Login() {
   return (
     <div className="auth-page">
       <div className="bg-glow"></div>
-
-      <div className="auth-card">
-        <div className="auth-logo">
-          <div className="logo-icon">
-            <img
-              src={logoFavicon}
-              alt="logo"
-            />
-          </div>
-
-          <div className="logo-text">
-            <img
-              src={
-                darkMode
-                  ? logoDarkText
-                  : logoLightText
-              }
-              alt="logo-text"
-            />
-
-            <p>
-              Virtual Numbers & OTP
-              Verification
-            </p>
-          </div>
-        </div>
 
         <div className="auth-content">
           <h2>Welcome Back</h2>
