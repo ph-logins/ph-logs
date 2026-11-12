@@ -1023,15 +1023,13 @@ FOOTER
                         <div className="logo">
     <img
         src={isLightTheme ? logoLight : logoDark}
-        alt="Numio"
+        alt="PH-Logs"
     />
 </div>
 
 
                         <p>
-                            PH Logs is an all-in-one digital marketplace offering virtual phone numbers, social media logs, and digital gift sending. 
-                            Access virtual numbers from over 100 countries, explore social media account options, and send digital gifts worldwide through a fast, 
-                            secure, and reliable platform.
+                           PH Logs is your all-in-one marketplace for virtual numbers, social media logs, and digital gifts, offering secure access and worldwide delivery.
                         </p>
 
                         <div className="social-icons">
@@ -1080,9 +1078,9 @@ FOOTER
 
                             <li>Virtual Numbers</li>
 
-                            <li>SMS Verification</li>
+                            <li>Social Media Logs</li>
 
-                            <li>OTP Activation</li>
+                            <li>Digital Gifts</li>
 
                             <li>API</li>
 
@@ -1175,7 +1173,7 @@ FOOTER
                         <p>
                             Stay updated with new countries,
                             supported services, product updates,
-                            and exclusive offers from Numio.
+                            and exclusive offers from PH Logs.
                         </p>
 
                         <div className="newsletter">
