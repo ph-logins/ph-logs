@@ -560,18 +560,17 @@ WHY CHOOSE REALSMS
                 >
 
                     <span className="why-badge">
-                        Why Choose Numio
+                        Why Choose PH Logs
                     </span>
 
                     <h2>
-                        Fast, Secure Virtual Numbers for
-                        SMS Verification Worldwide
+                        Your All-in-One Platform for Virtual Numbers, Social Media Logs & Digital Gifts
                     </h2>
 
                     <p>
-                        Numio helps developers, businesses, marketers, and individuals
-                        receive OTP codes quickly using reliable virtual phone numbers
-                        from more than 100 countries.
+                       PH Logs brings virtual phone numbers, social media logs, and digital gift sending together in one convenient platform. 
+                       Access numbers from over 100 countries, explore social media account options, and send digital gifts worldwide with fast, 
+                       secure, and reliable service.
                     </p>
 
                 </motion.div>
@@ -652,8 +651,7 @@ WHY CHOOSE REALSMS
                         <h3>100+ Countries</h3>
 
                         <p>
-                            Access virtual phone numbers from a growing list of
-                            countries for registrations worldwide.
+                            Access virtual phone numbers from 100+ countries, explore social media logs, and send digital gifts worldwide with ease.
                         </p>
 
                     </motion.div>
@@ -686,8 +684,7 @@ WHY CHOOSE REALSMS
                         <h3>Privacy Protection</h3>
 
                         <p>
-                            Keep your personal phone number private while creating
-                            and verifying online accounts.
+                           Protect your privacy, access social media accounts, and send digital gifts worldwide without hassle.
                         </p>
 
                     </motion.div>
@@ -720,9 +717,8 @@ WHY CHOOSE REALSMS
                         <h3>Wide Platform Support</h3>
 
                         <p>
-                            Works with popular services including WhatsApp,
-                            Telegram, Google, Facebook, TikTok, Instagram and
-                            many others.
+                            Explore social media logs for popular platforms like Facebook, Instagram, TikTok, Telegram, WhatsApp, and many others, 
+                            alongside digital gifts for recipients worldwide.
                         </p>
 
                     </motion.div>
@@ -755,8 +751,8 @@ WHY CHOOSE REALSMS
                         <h3>Live Inventory</h3>
 
                         <p>
-                            Browse available countries, services and prices that
-                            are updated in real time before you purchase.
+                            Browse available virtual numbers, social media logs, and digital gift options with transparent, 
+                            up-to-date pricing before making a purchase.
                         </p>
 
                     </motion.div>
@@ -789,9 +785,8 @@ WHY CHOOSE REALSMS
                         <h3>24/7 Availability</h3>
 
                         <p>
-                            Purchase numbers anytime with live inventory updates,
-                            instant activation, and reliable SMS delivery around
-                            the clock.
+                            Shop virtual numbers, explore social media logs, and send digital gifts anytime with up-to-date availability, 
+                            instant access, and reliable worldwide delivery around the clock.
                         </p>
 
                     </motion.div>
