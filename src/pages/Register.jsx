@@ -8,14 +8,14 @@ import {
   FiEyeOff,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+// import { useTheme } from "../context/ThemeContext";
 
 import "../styles/auth.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function Register() {
-  const { darkMode } = useTheme();
+  // const { darkMode } = useTheme();
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
