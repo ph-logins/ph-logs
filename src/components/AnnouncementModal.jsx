@@ -39,7 +39,7 @@ const AnnouncementModal = () => {
                     <FiBell />
                 </div>
 
-                <h2>Welcome to Numio 🎉</h2>
+                <h2>Welcome to PH Logs 🎉</h2>
 
                 <p>
                     Join our official Telegram community to receive
@@ -48,7 +48,7 @@ const AnnouncementModal = () => {
                 </p>
 
                 <a
-                    href="https://t.me/numioverify"
+                    href="https://t.me/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="telegram-btn"
