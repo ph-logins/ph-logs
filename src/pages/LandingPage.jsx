@@ -825,7 +825,7 @@ WHY CHOOSE REALSMS
                     </h2>
 
                     <p>
-                        Start receiving SMS verification codes in less than a minute.
+                        Access virtual numbers, social media logs, and digital gifts in just a few simple steps.
                     </p>
 
                 </motion.div>
@@ -850,7 +850,7 @@ WHY CHOOSE REALSMS
                         <h3>Create your account</h3>
 
                         <p>
-                            Register in seconds and verify your email to unlock the marketplace.
+                            Sign up in seconds and verify your email to unlock the PH Logs marketplace.
                         </p>
 
                     </motion.div>
@@ -872,10 +872,10 @@ WHY CHOOSE REALSMS
                             02
                         </div>
 
-                        <h3>Select a service</h3>
+                        <h3>Explore the marketplace</h3>
 
                         <p>
-                            Select your country and the online service you want to verify.
+                            Browse virtual phone numbers, social media logs, and digital gift options from around the world.
                         </p>
 
                     </motion.div>
@@ -896,10 +896,10 @@ WHY CHOOSE REALSMS
                             03
                         </div>
 
-                        <h3>Receive instantly</h3>
+                        <h3>Choose and purchase</h3>
 
                         <p>
-                            Receive your OTP instantly and complete your account verification without delays.
+                            Select your preferred product, review the available options and pricing, and complete your purchase securely.
                         </p>
 
                     </motion.div>
