@@ -10,10 +10,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
-import logoFavicon from "../assets/logo-favicon.png";
-import logoLightText from "../assets/logo-light-text.png";
-import logoDarkText from "../assets/logo-dark-text.png";
-
 import "../styles/auth.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -110,31 +106,6 @@ export default function Register() {
 
       {/* Auth Card */}
       <div className="auth-card">
-        <div className="auth-logo">
-          <div className="logo-icon">
-            <img
-              src={logoFavicon}
-              alt="numio-favicon"
-            />
-          </div>
-
-          <div className="logo-text">
-            <img
-              src={
-                darkMode
-                  ? logoDarkText
-                  : logoLightText
-              }
-              alt="numio-text"
-            />
-
-            <p>
-              Virtual Numbers & OTP
-              Verification
-            </p>
-          </div>
-        </div>
-
         <div className="auth-content">
           <h2>Create Account</h2>
 
