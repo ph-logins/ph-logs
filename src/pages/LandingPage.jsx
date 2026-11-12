@@ -12,6 +12,8 @@ import {
     FiSmartphone,
     FiTrendingUp,
     FiPhone,
+    FiGift,
+    FiLayers,
     FiMessageCircle,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -498,7 +500,7 @@ SERVICES
                     >
 
                         <div className="landing-service-icon">
-                            <FiPhone />
+                            <FiLayers />
                         </div>
 
                         <h3>Social Media Logs</h3>
@@ -520,7 +522,7 @@ SERVICES
                     >
 
                         <div className="landing-service-icon landing-service-icon-purple">
-                            <FiMessageCircle />
+                            <FiGift />
                         </div>
 
                         <h3>Digital Gift Delivery</h3>
