@@ -110,9 +110,7 @@ export default function Register() {
           <h2>Create Account</h2>
 
           <p className="auth-subtitle">
-            Join NUMIO and start receiving
-            OTPs instantly with secure
-            virtual numbers.
+            Join PH Logs and unlock virtual numbers, social media logs, and digital gifts with secure access and worldwide delivery.
           </p>
 
           {error && (
