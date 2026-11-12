@@ -933,15 +933,14 @@ WHY CHOOSE REALSMS
                     </span>
 
                     <h2>
-                        Start Receiving OTP Codes
+                       Everything You Need,
                         <br />
-                        Within Minutes.
+                       All in One Place.
                     </h2>
 
                     <p>
-                        Create your free Numio account today and purchase
-                        virtual phone numbers for SMS verification across
-                        100+ countries with instant delivery and secure payments.
+                        Create your free PH Logs account today to access virtual phone numbers from 100+ countries, explore social media logs, and 
+                        send digital gifts worldwide with fast access, secure payments, and reliable service.
                     </p>
 
                     <div className="cta-buttons">
@@ -1030,9 +1029,9 @@ FOOTER
 
 
                         <p>
-                            Numio is a trusted SMS verification platform providing
-                            virtual phone numbers for OTP activation, account verification,
-                            and online registrations across more than 100 countries.
+                            PH Logs is an all-in-one digital marketplace offering virtual phone numbers, social media logs, and digital gift sending. 
+                            Access virtual numbers from over 100 countries, explore social media account options, and send digital gifts worldwide through a fast, 
+                            secure, and reliable platform.
                         </p>
 
                         <div className="social-icons">
