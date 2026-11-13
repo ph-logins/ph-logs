@@ -24,6 +24,7 @@ import FundSuccess from "./pages/FundSuccess";
 import FundCancel from "./pages/FundCancel";
 import Orders from "./pages/OrderHistory";
 import Transactions from "./pages/Transactions";
+import Gift from "./pages/Gift";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import Appearance from "./pages/Appearance";
@@ -79,6 +80,11 @@ function App() {
               <Route
                 path="/inbox"
                 element={<Inbox />}
+              />
+
+              <Route
+                path="/gift"
+                element={<Gift />}
               />
 
               <Route
