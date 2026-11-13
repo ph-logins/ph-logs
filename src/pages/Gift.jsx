@@ -1,6 +1,6 @@
 import {
   FiGift,
-  FiShoppingCart,
+  FiShoppingCart, 
   FiPlus,
 } from "react-icons/fi";
 
