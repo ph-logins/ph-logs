@@ -1,5 +1,4 @@
 import {
-  FiGift,
   FiShoppingCart, 
   FiPlus,
 } from "react-icons/fi";
@@ -63,7 +62,7 @@ export default function Gift() {
       <div className="gift-header">
         <div>
           <h1>
-            <FiGift />Digital Gifts
+           Digital Gifts
           </h1>
           <p>
             Discover and send digital gift cards
