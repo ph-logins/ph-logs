@@ -62,7 +62,9 @@ export default function Gift() {
 
       <div className="gift-header">
         <div>
-          <h1>Digital Gifts</h1>
+          <h1>
+            <FiGift />Digital Gifts
+          </h1>
           <p>
             Discover and send digital gift cards
             to friends and loved ones.
