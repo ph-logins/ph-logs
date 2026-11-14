@@ -36,7 +36,7 @@ const Dashboard = () => {
 
     useEffect(() => {
 
-        document.title = "Dashboard - Numio";
+        document.title = "Dashboard - PH Logs";
 
 
         const fetchStats = async () => {
