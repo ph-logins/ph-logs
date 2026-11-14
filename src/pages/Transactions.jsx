@@ -40,7 +40,7 @@ const DepositHistory = () => {
         useState(1);
 
     useEffect(() => {
-        document.title = "Deposit History - Numio";
+        document.title = "Deposit History - PH Logs";
         fetchDeposits();
     }, []);
 
