@@ -15,7 +15,7 @@ const FundCancel = () => {
   const [countdown, setCountdown] = useState(8);
 
   useEffect(() => {
-    document.title = "Payment Cancelled - RealSMS";
+    document.title = "Payment Cancelled - PH Logs";
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
