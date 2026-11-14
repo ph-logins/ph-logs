@@ -69,11 +69,6 @@ export default function Gift() {
             to friends and loved ones.
           </p>
         </div>
-
-        <button className="gift-cart-button">
-          <FiShoppingCart />
-          <span>Cart</span>
-        </button>
       </div>
 
       <div className="gift-section-header">
