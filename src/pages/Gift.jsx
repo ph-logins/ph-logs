@@ -1,5 +1,4 @@
-import {
-  FiShoppingCart, 
+import { 
   FiPlus,
 } from "react-icons/fi";
 
