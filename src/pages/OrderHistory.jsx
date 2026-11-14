@@ -28,7 +28,7 @@ const OrderHistory = () => {
         useState(1);
 
     useEffect(() => {
-        document.title = "Order History - Numio";
+        document.title = "Order History - PH Logs";
         fetchOrders();
     }, []);
 
