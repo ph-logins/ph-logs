@@ -26,7 +26,7 @@ const FundWallet = () => {
   const gatewayName =
     gateway === "flutterwave" ? "Flutterwave" : "Paystack";
 
-  document.title = `Fund Wallet (${gatewayName}) - Numio`;
+  document.title = `Fund Wallet (${gatewayName}) - PH Logs`;
 }, [gateway]);
 
   const handleQuickAmount = (value) => {
