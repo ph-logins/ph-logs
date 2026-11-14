@@ -55,7 +55,7 @@ const BuyNumber = () => {
     =========================== */
 
     useEffect(() => {
-        document.title = "Buy Number - Numio";
+        document.title = "Buy Number - PH Logs";
     }, []);
 
     useEffect(() => {
