@@ -61,9 +61,11 @@ const Inbox = () => {
         }
     };
 
-    useEffect(() => {
-        loadInbox();
-    }, []);
+   useEffect(() => {
+    document.title = "SMS History - PH Logs";
+
+    loadInbox();
+}, []);
 
     const apps = useMemo(() => {
         return [
