@@ -15,7 +15,7 @@ const FundSuccess = () => {
   const [countdown, setCountdown] = useState(8);
 
   useEffect(() => {
-    document.title = "Funding Successful - RealSMS";
+    document.title = "Funding Successful - PH Logs";
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
