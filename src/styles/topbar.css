@@ -126,6 +126,38 @@
   color: var(--text-muted);
 }
 
+
+.cart-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cart-icon-wrapper .top-icon {
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  background: #0052ff;
+  color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  border: 2px solid var(--background, #ffffff);
+}
+
 /* =========================
    RESPONSIVE
 ========================= */
