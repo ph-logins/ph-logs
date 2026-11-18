@@ -27,6 +27,7 @@ import Orders from "./pages/OrderHistory";
 import Transactions from "./pages/Transactions";
 import Gift from "./pages/Gift";
 import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 import Support from "./pages/Support";
 import Settings from "./pages/Settings";
 import Appearance from "./pages/Appearance";
@@ -94,6 +95,11 @@ function App() {
   path="/checkout"
   element={<Checkout />}
 />    
+
+                    <Route
+  path="/gift/order-success"
+  element={<OrderConfirmation />}
+/>
 
                 <Route
                   path="/fund-wallet"
