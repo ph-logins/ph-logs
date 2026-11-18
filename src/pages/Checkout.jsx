@@ -11,6 +11,7 @@ import {
   FiShield,
   FiUser,
   FiAlertCircle,
+  FiMapPin,
 } from "react-icons/fi";
 
 import { useCart } from "../context/CartContext";
@@ -35,6 +36,7 @@ const Checkout = () => {
     senderEmail: "",
     recipientName: "",
     recipientEmail: "",
+    recipientAddress: "",
     message: "",
   });
 
@@ -78,7 +80,8 @@ const Checkout = () => {
     if (
       !formData.senderEmail ||
       !formData.recipientName ||
-      !formData.recipientEmail
+      !formData.recipientEmail ||
+      !formData.recipientAddress.trim()
     ) {
       setError("Please complete all required fields.");
       return;
@@ -113,6 +116,7 @@ const Checkout = () => {
         senderEmail: formData.senderEmail,
         recipientName: formData.recipientName,
         recipientEmail: formData.recipientEmail,
+        recipientAddress: formData.recipientAddress.trim(),
         message: formData.message,
 
         paymentMethod: "main_balance",
@@ -253,6 +257,25 @@ const Checkout = () => {
                     </div>
                   </div>
 
+                  {/* Recipient Address */}
+                  <div className="checkout-field checkout-full-width">
+                    <label>Recipient's Address</label>
+
+                    <div className="checkout-input-wrapper checkout-textarea-wrapper">
+                      <FiMapPin />
+
+                      <textarea
+                        name="recipientAddress"
+                        placeholder="Enter recipient's full delivery address"
+                        value={formData.recipientAddress}
+                        onChange={handleChange}
+                        rows={3}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Gift Message */}
                   <div className="checkout-field checkout-full-width">
                     <label>Gift Message (Optional)</label>
 
