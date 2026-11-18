@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FiArrowLeft,
   FiCheckCircle,
@@ -20,7 +19,7 @@ import { useBalance } from "../context/BalanceContext";
 import "../styles/checkout.css";
 
 const Checkout = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const {
     cart,
