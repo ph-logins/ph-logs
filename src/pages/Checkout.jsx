@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FiArrowLeft,
   FiCheckCircle,
@@ -20,6 +20,8 @@ import { useBalance } from "../context/BalanceContext";
 import "../styles/checkout.css";
 
 const Checkout = () => {
+  const navigate = useNavigate();
+
   const {
     cart,
     cartCount,
@@ -42,10 +44,9 @@ const Checkout = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const deliveryFee = 0;
-  const total = cartTotal + deliveryFee;
+  const total = Number(cartTotal) + deliveryFee;
 
   const walletBalance = Number(balance) || 0;
   const sufficientBalance = walletBalance >= total;
@@ -55,7 +56,7 @@ const Checkout = () => {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 2,
-    }).format(amount);
+    }).format(Number(amount) || 0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,13 +65,14 @@ const Checkout = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (error) setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError("");
-    setSuccess("");
 
     if (!cart.length) {
       setError("Your cart is empty.");
@@ -78,9 +80,9 @@ const Checkout = () => {
     }
 
     if (
-      !formData.senderEmail ||
-      !formData.recipientName ||
-      !formData.recipientEmail ||
+      !formData.senderEmail.trim() ||
+      !formData.recipientName.trim() ||
+      !formData.recipientEmail.trim() ||
       !formData.recipientAddress.trim()
     ) {
       setError("Please complete all required fields.");
@@ -102,41 +104,93 @@ const Checkout = () => {
     setLoading(true);
 
     try {
-      // Backend payment integration will be connected here.
-      // The backend must verify prices and balance before deducting funds.
-
       const orderDetails = {
         items: cart.map((item) => ({
           productId: item.id,
           name: item.name,
-          quantity: item.quantity,
-          price: item.price,
+          quantity: Number(item.quantity) || 1,
+          price: Number(item.price) || 0,
         })),
 
-        senderEmail: formData.senderEmail,
-        recipientName: formData.recipientName,
-        recipientEmail: formData.recipientEmail,
+        senderEmail: formData.senderEmail.trim(),
+        recipientName: formData.recipientName.trim(),
+        recipientEmail: formData.recipientEmail.trim(),
         recipientAddress: formData.recipientAddress.trim(),
-        message: formData.message,
+        message: formData.message.trim(),
 
         paymentMethod: "main_balance",
 
-        subtotal: cartTotal,
+        subtotal: Number(cartTotal),
         deliveryFee,
         total,
       };
 
-      console.log("Checkout order:", orderDetails);
+      /*
+       * BACKEND PAYMENT INTEGRATION
+       *
+       * This is where the order API request should go.
+       *
+       * The backend must:
+       * 1. Validate the gift products and prices.
+       * 2. Verify the user's main wallet balance.
+       * 3. Deduct the payment from the main wallet.
+       * 4. Create the gift order.
+       * 5. Return the confirmed order details.
+       *
+       * Do not navigate to the success page before the backend
+       * confirms both payment and order creation.
+       */
+
+      console.log("Checkout order details:", orderDetails);
 
       setError(
         "Payment processing is not connected yet. Your wallet has not been charged."
       );
+
+      /*
+       * AFTER CONNECTING YOUR BACKEND:
+       *
+       * Example:
+       *
+       * const response = await axios.post(
+       *   `${API_URL}/gift/orders`,
+       *   orderDetails,
+       *   { withCredentials: true }
+       * );
+       *
+       * if (
+       *   response.data.success &&
+       *   response.data.order &&
+       *   response.data.paymentStatus === "success"
+       * ) {
+       *   const confirmedOrder = response.data.order;
+       *
+       *   navigate("/gift/order-success", {
+       *     state: {
+       *       order: {
+       *         orderId: confirmedOrder.orderId,
+       *         paymentStatus: "success",
+       *         deliveryStatus:
+       *           confirmedOrder.deliveryStatus || "Processing",
+       *         createdAt: confirmedOrder.createdAt,
+       *         total: confirmedOrder.total,
+       *         items: confirmedOrder.items,
+       *         recipientName: confirmedOrder.recipientName,
+       *         recipientEmail: confirmedOrder.recipientEmail,
+       *         recipientAddress: confirmedOrder.recipientAddress,
+       *         message: confirmedOrder.message,
+       *       },
+       *     },
+       *   });
+       * }
+       */
+
     } catch (err) {
       console.error("Checkout error:", err);
 
       setError(
         err.response?.data?.message ||
-        "Unable to process your order."
+        "Unable to process your order. Please try again."
       );
     } finally {
       setLoading(false);
@@ -207,12 +261,15 @@ const Checkout = () => {
                 <div className="checkout-form-grid">
 
                   <div className="checkout-field">
-                    <label>Sender Email</label>
+                    <label htmlFor="senderEmail">
+                      Sender Email
+                    </label>
 
                     <div className="checkout-input-wrapper">
                       <FiMail />
 
                       <input
+                        id="senderEmail"
                         type="email"
                         name="senderEmail"
                         placeholder="Your email address"
@@ -224,12 +281,15 @@ const Checkout = () => {
                   </div>
 
                   <div className="checkout-field">
-                    <label>Recipient Full Name</label>
+                    <label htmlFor="recipientName">
+                      Recipient Full Name
+                    </label>
 
                     <div className="checkout-input-wrapper">
                       <FiUser />
 
                       <input
+                        id="recipientName"
                         type="text"
                         name="recipientName"
                         placeholder="Recipient's full name"
@@ -241,12 +301,15 @@ const Checkout = () => {
                   </div>
 
                   <div className="checkout-field checkout-full-width">
-                    <label>Recipient Email</label>
+                    <label htmlFor="recipientEmail">
+                      Recipient Email
+                    </label>
 
                     <div className="checkout-input-wrapper">
                       <FiMail />
 
                       <input
+                        id="recipientEmail"
                         type="email"
                         name="recipientEmail"
                         placeholder="Recipient's email address"
@@ -259,12 +322,15 @@ const Checkout = () => {
 
                   {/* Recipient Address */}
                   <div className="checkout-field checkout-full-width">
-                    <label>Recipient's Address</label>
+                    <label htmlFor="recipientAddress">
+                      Recipient's Address
+                    </label>
 
                     <div className="checkout-input-wrapper checkout-textarea-wrapper">
                       <FiMapPin />
 
                       <textarea
+                        id="recipientAddress"
                         name="recipientAddress"
                         placeholder="Enter recipient's full delivery address"
                         value={formData.recipientAddress}
@@ -277,12 +343,15 @@ const Checkout = () => {
 
                   {/* Gift Message */}
                   <div className="checkout-field checkout-full-width">
-                    <label>Gift Message (Optional)</label>
+                    <label htmlFor="message">
+                      Gift Message (Optional)
+                    </label>
 
                     <div className="checkout-input-wrapper checkout-textarea-wrapper">
                       <FiMessageSquare />
 
                       <textarea
+                        id="message"
                         name="message"
                         placeholder="Write a message for the recipient..."
                         value={formData.message}
@@ -316,7 +385,6 @@ const Checkout = () => {
                 </div>
 
                 <div className="checkout-payment-option selected">
-
                   <div className="checkout-payment-icon">
                     <FiCreditCard />
                   </div>
@@ -333,7 +401,6 @@ const Checkout = () => {
                   </div>
 
                   <FiCheckCircle className="checkout-payment-check" />
-
                 </div>
 
                 {!loadingBalance && !sufficientBalance && (
@@ -350,8 +417,8 @@ const Checkout = () => {
                   <FiShield />
 
                   <span>
-                    Your payment will be deducted from your main wallet
-                    balance once payment processing is connected.
+                    Payment will be deducted from your main wallet
+                    after the order is successfully processed.
                   </span>
                 </div>
               </section>
@@ -367,7 +434,6 @@ const Checkout = () => {
               </p>
 
               <div className="checkout-summary-items">
-
                 {cart.map((item) => (
                   <div
                     className="checkout-summary-item"
@@ -384,11 +450,12 @@ const Checkout = () => {
                     </div>
 
                     <strong>
-                      {formatPrice(item.price * item.quantity)}
+                      {formatPrice(
+                        Number(item.price) * Number(item.quantity)
+                      )}
                     </strong>
                   </div>
                 ))}
-
               </div>
 
               <div className="checkout-summary-divider" />
@@ -414,7 +481,9 @@ const Checkout = () => {
                 <span>Main Wallet Balance</span>
 
                 <strong>
-                  {loadingBalance ? "Loading..." : formattedBalance}
+                  {loadingBalance
+                    ? "Loading..."
+                    : formattedBalance}
                 </strong>
               </div>
 
@@ -440,13 +509,6 @@ const Checkout = () => {
                 <div className="checkout-error">
                   <FiAlertCircle />
                   {error}
-                </div>
-              )}
-
-              {success && (
-                <div className="checkout-success">
-                  <FiCheckCircle />
-                  {success}
                 </div>
               )}
 
