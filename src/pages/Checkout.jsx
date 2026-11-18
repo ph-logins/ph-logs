@@ -1,7 +1,6 @@
 
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FiArrowLeft,
   FiCheckCircle,
@@ -11,6 +10,7 @@ import {
   FiMessageSquare,
   FiShield,
   FiUser,
+  FiAlertCircle,
 } from "react-icons/fi";
 
 import { useCart } from "../context/CartContext";
@@ -19,10 +19,18 @@ import { useBalance } from "../context/BalanceContext";
 import "../styles/checkout.css";
 
 const Checkout = () => {
-  const navigate = useNavigate();
+  const {
+    cart,
+    cartCount,
+    cartTotal,
+  } = useCart();
 
-  const { cart, cartCount, cartTotal } = useCart();
-  const { balance } = useBalance();
+  const {
+    balance,
+    formattedBalance,
+    loadingBalance,
+    refreshBalance,
+  } = useBalance();
 
   const [formData, setFormData] = useState({
     senderEmail: "",
@@ -31,27 +39,23 @@ const Checkout = () => {
     message: "",
   });
 
-  const [paymentMethod, setPaymentMethod] = useState("wallet");
-  const [submitting, setSubmitting] = useState(false);
+  const [paymentMethod] = useState("wallet");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    document.title = "Checkout - Numio";
-  }, []);
-
-  const formatPrice = (price) =>
-    new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-    }).format(price);
-
-  const walletBalance = Number(balance) || 0;
+  const [success, setSuccess] = useState("");
 
   const deliveryFee = 0;
   const total = cartTotal + deliveryFee;
 
+  const walletBalance = Number(balance) || 0;
   const sufficientBalance = walletBalance >= total;
+
+  const formatPrice = (amount) =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 2,
+    }).format(amount);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,23 +70,34 @@ const Checkout = () => {
     e.preventDefault();
 
     setError("");
+    setSuccess("");
 
     if (!cart.length) {
       setError("Your cart is empty.");
       return;
     }
 
-    if (
-      paymentMethod === "wallet" &&
-      !sufficientBalance
-    ) {
-      setError("Insufficient wallet balance. Please fund your wallet.");
+    if (!formData.senderEmail || !formData.recipientName || !formData.recipientEmail) {
+      setError("Please complete all required fields.");
       return;
     }
 
-    setSubmitting(true);
+    if (loadingBalance) {
+      setError("Please wait while your wallet balance loads.");
+      return;
+    }
+
+    if (!sufficientBalance) {
+      setError("Insufficient main wallet balance. Please fund your wallet to continue.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
+      // Backend payment integration will be connected here.
+      // The backend must verify prices and balance before deducting funds.
+
       const orderDetails = {
         items: cart.map((item) => ({
           productId: item.id,
@@ -94,36 +109,35 @@ const Checkout = () => {
         recipientName: formData.recipientName,
         recipientEmail: formData.recipientEmail,
         message: formData.message,
-        paymentMethod,
+        paymentMethod: "main_balance",
         subtotal: cartTotal,
         deliveryFee,
         total,
       };
 
-      // Connect this payload to your backend order API.
       console.log("Checkout order:", orderDetails);
 
       setError(
-        "Checkout details are ready. Payment processing has not been connected yet."
+        "Payment processing is not connected yet. Your wallet has not been charged."
       );
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      console.error("Checkout error:", err);
+
+      setError(
+        err.response?.data?.message || "Unable to process your order."
+      );
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
 
-  if (cart.length === 0) {
+  if (!cart.length) {
     return (
       <div className="checkout-page">
         <div className="checkout-empty">
-          <FiGift />
-
+          <FiGift size={42} />
           <h2>Your cart is empty</h2>
-
-          <p>
-            You haven't added any gifts to your cart yet.
-          </p>
+          <p>Add some gifts before proceeding to checkout.</p>
 
           <Link to="/gift" className="checkout-back-button">
             Explore Gifts
@@ -135,288 +149,272 @@ const Checkout = () => {
 
   return (
     <div className="checkout-page">
+      <div className="checkout-container">
 
-      {/* Page Header */}
-      <div className="checkout-header">
-        <button
-          className="checkout-back"
-          onClick={() => navigate("/gift")}
-        >
+        <Link to="/gift" className="checkout-back-link">
           <FiArrowLeft />
           Continue Shopping
-        </button>
+        </Link>
 
-        <div>
-          <h1>Checkout</h1>
-          <p>Complete your gift order securely.</p>
-        </div>
-      </div>
-
-      <div className="checkout-layout">
-
-        {/* Checkout Form */}
-        <form
-          className="checkout-form"
-          onSubmit={handleSubmit}
-        >
-
-          {/* Recipient Information */}
-          <section className="checkout-section">
-
-            <div className="checkout-section-title">
-              <div className="checkout-section-icon">
-                <FiGift />
-              </div>
-
-              <div>
-                <h3>Gift Recipient</h3>
-                <p>Who are you sending this gift to?</p>
-              </div>
-            </div>
-
-            <div className="checkout-input-group">
-              <label>Recipient's Full Name</label>
-
-              <div className="checkout-input-wrapper">
-                <FiUser />
-
-                <input
-                  type="text"
-                  name="recipientName"
-                  placeholder="Enter recipient's name"
-                  value={formData.recipientName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="checkout-input-group">
-              <label>Recipient's Email Address</label>
-
-              <div className="checkout-input-wrapper">
-                <FiMail />
-
-                <input
-                  type="email"
-                  name="recipientEmail"
-                  placeholder="recipient@example.com"
-                  value={formData.recipientEmail}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <small>
-                Digital gift delivery will be sent to this email.
-              </small>
-            </div>
-
-          </section>
-
-          {/* Sender Information */}
-          <section className="checkout-section">
-
-            <div className="checkout-section-title">
-              <div className="checkout-section-icon">
-                <FiUser />
-              </div>
-
-              <div>
-                <h3>Sender Information</h3>
-                <p>Your contact information.</p>
-              </div>
-            </div>
-
-            <div className="checkout-input-group">
-              <label>Your Email Address</label>
-
-              <div className="checkout-input-wrapper">
-                <FiMail />
-
-                <input
-                  type="email"
-                  name="senderEmail"
-                  placeholder="your@email.com"
-                  value={formData.senderEmail}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-          </section>
-
-          {/* Gift Message */}
-          <section className="checkout-section">
-
-            <div className="checkout-section-title">
-              <div className="checkout-section-icon">
-                <FiMessageSquare />
-              </div>
-
-              <div>
-                <h3>Gift Message</h3>
-                <p>Add a personal message to your gift.</p>
-              </div>
-            </div>
-
-            <div className="checkout-input-group">
-              <label>Personal Message (Optional)</label>
-
-              <textarea
-                name="message"
-                placeholder="Write something special..."
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                maxLength={300}
-              />
-
-              <small>
-                {formData.message.length}/300 characters
-              </small>
-            </div>
-
-          </section>
-
-          {/* Payment Method */}
-          <section className="checkout-section">
-
-            <div className="checkout-section-title">
-              <div className="checkout-section-icon">
-                <FiCreditCard />
-              </div>
-
-              <div>
-                <h3>Payment Method</h3>
-                <p>Select how you want to pay.</p>
-              </div>
-            </div>
-
-            <label className={`payment-option ${
-              paymentMethod === "wallet" ? "selected" : ""
-            }`}>
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="wallet"
-                checked={paymentMethod === "wallet"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              />
-
-              <FiCreditCard className="payment-option-icon" />
-
-              <div>
-                <h4>Pay with Wallet</h4>
-                <p>
-                  Available balance: {formatPrice(walletBalance)}
-                </p>
-              </div>
-
-              <FiCheckCircle className="payment-check" />
-            </label>
-
-            {!sufficientBalance && paymentMethod === "wallet" && (
-              <div className="insufficient-balance">
-                Insufficient balance. You need {formatPrice(total - walletBalance)} more.
-                <Link to="/fund-wallet">Fund Wallet</Link>
-              </div>
-            )}
-
-          </section>
-
-          {error && (
-            <div className="checkout-error">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            className="place-order-button"
-            disabled={submitting || !sufficientBalance}
-          >
-            <FiShield />
-            {submitting ? "Processing..." : `Place Order · ${formatPrice(total)}`}
-          </button>
-
-          <p className="checkout-secure-note">
-            <FiShield />
-            Your checkout information is handled securely.
-          </p>
-
-        </form>
-
-        {/* Order Summary */}
-        <aside className="checkout-summary">
-
-          <div className="checkout-summary-header">
-            <h3>Order Summary</h3>
-
-            <span>{cartCount} Items</span>
+        <div className="checkout-heading">
+          <div>
+            <h1>Checkout</h1>
+            <p>Complete your gift order securely.</p>
           </div>
 
-          <div className="checkout-summary-items">
+          <div className="checkout-secure">
+            <FiShield />
+            Secure Checkout
+          </div>
+        </div>
 
-            {cart.map((item) => (
-              <div
-                className="checkout-summary-item"
-                key={item.id}
-              >
+        <form onSubmit={handleSubmit}>
+          <div className="checkout-layout">
 
-                <img
-                  src={item.image}
-                  alt={item.name}
-                />
+            <div className="checkout-main">
 
-                <div className="checkout-summary-details">
-                  <h4>{item.name}</h4>
+              {/* Recipient Information */}
+              <section className="checkout-section">
+                <div className="checkout-section-heading">
+                  <div className="checkout-heading-icon">
+                    <FiUser />
+                  </div>
 
-                  <span>
-                    Quantity: {item.quantity}
-                  </span>
-
-                  <strong>
-                    {formatPrice(item.price * item.quantity)}
-                  </strong>
+                  <div>
+                    <h2>Recipient Information</h2>
+                    <p>Enter the details of the gift recipient.</p>
+                  </div>
                 </div>
 
+                <div className="checkout-form-grid">
+
+                  <div className="checkout-field">
+                    <label>Sender Email</label>
+
+                    <div className="checkout-input-wrapper">
+                      <FiMail />
+
+                      <input
+                        type="email"
+                        name="senderEmail"
+                        placeholder="Your email address"
+                        value={formData.senderEmail}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="checkout-field">
+                    <label>Recipient Full Name</label>
+
+                    <div className="checkout-input-wrapper">
+                      <FiUser />
+
+                      <input
+                        type="text"
+                        name="recipientName"
+                        placeholder="Recipient's full name"
+                        value={formData.recipientName}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="checkout-field checkout-full-width">
+                    <label>Recipient Email</label>
+
+                    <div className="checkout-input-wrapper">
+                      <FiMail />
+
+                      <input
+                        type="email"
+                        name="recipientEmail"
+                        placeholder="Recipient's email address"
+                        value={formData.recipientEmail}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="checkout-field checkout-full-width">
+                    <label>Gift Message (Optional)</label>
+
+                    <div className="checkout-input-wrapper checkout-textarea-wrapper">
+                      <FiMessageSquare />
+
+                      <textarea
+                        name="message"
+                        placeholder="Write a message for the recipient..."
+                        value={formData.message}
+                        onChange={handleChange}
+                        maxLength={300}
+                        rows={4}
+                      />
+                    </div>
+
+                    <small>
+                      {formData.message.length}/300 characters
+                    </small>
+                  </div>
+
+                </div>
+              </section>
+
+              {/* Payment Method */}
+              <section className="checkout-section">
+                <div className="checkout-section-heading">
+                  <div className="checkout-heading-icon">
+                    <FiCreditCard />
+                  </div>
+
+                  <div>
+                    <h2>Payment Method</h2>
+                    <p>Pay directly from your Numio main balance.</p>
+                  </div>
+                </div>
+
+                <div className="checkout-payment-option selected">
+
+                  <div className="checkout-payment-icon">
+                    <FiCreditCard />
+                  </div>
+
+                  <div className="checkout-payment-info">
+                    <h3>Main Wallet Balance</h3>
+                    <p>
+                      Available balance:{" "}
+                      {loadingBalance ? "Loading..." : formattedBalance}
+                    </p>
+                  </div>
+
+                  <FiCheckCircle className="checkout-payment-check" />
+
+                </div>
+
+                {!loadingBalance && !sufficientBalance && (
+                  <div className="checkout-warning">
+                    <FiAlertCircle />
+                    <span>
+                      Your wallet balance is insufficient for this order.
+                    </span>
+                  </div>
+                )}
+
+                <div className="checkout-wallet-note">
+                  <FiShield />
+                  Your payment will be deducted from your main wallet balance
+                  once payment processing is connected.
+                </div>
+              </section>
+
+            </div>
+
+            {/* Order Summary */}
+            <aside className="checkout-summary">
+              <h2>Order Summary</h2>
+
+              <p className="checkout-item-count">
+                {cartCount} item{cartCount !== 1 ? "s" : ""} in your cart
+              </p>
+
+              <div className="checkout-summary-items">
+
+                {cart.map((item) => (
+                  <div className="checkout-summary-item" key={item.id}>
+
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                    />
+
+                    <div className="checkout-summary-item-info">
+                      <h4>{item.name}</h4>
+                      <p>Qty: {item.quantity}</p>
+                    </div>
+
+                    <strong>
+                      {formatPrice(item.price * item.quantity)}
+                    </strong>
+
+                  </div>
+                ))}
+
               </div>
-            ))}
+
+              <div className="checkout-summary-divider" />
+
+              <div className="checkout-summary-row">
+                <span>Subtotal</span>
+                <strong>{formatPrice(cartTotal)}</strong>
+              </div>
+
+              <div className="checkout-summary-row">
+                <span>Delivery Fee</span>
+                <strong className="checkout-free">Free</strong>
+              </div>
+
+              <div className="checkout-summary-divider" />
+
+              <div className="checkout-summary-row checkout-total">
+                <span>Total</span>
+                <strong>{formatPrice(total)}</strong>
+              </div>
+
+              <div className="checkout-balance-info">
+                <span>Main Wallet Balance</span>
+                <strong>
+                  {loadingBalance ? "Loading..." : formattedBalance}
+                </strong>
+              </div>
+
+              <div className="checkout-balance-info">
+                <span>Balance After Payment</span>
+                <strong className={sufficientBalance ? "" : "checkout-insufficient"}>
+                  {loadingBalance
+                    ? "Loading..."
+                    : formatPrice(Math.max(0, walletBalance - total))}
+                </strong>
+              </div>
+
+              {error && (
+                <div className="checkout-error">
+                  <FiAlertCircle />
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="checkout-success">
+                  <FiCheckCircle />
+                  {success}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="checkout-place-order"
+                disabled={
+                  loading ||
+                  loadingBalance ||
+                  !sufficientBalance
+                }
+              >
+                {loading
+                  ? "Processing..."
+                  : `Pay ${formatPrice(total)}`}
+              </button>
+
+              <p className="checkout-terms">
+                By placing your order, you agree to our terms and conditions.
+              </p>
+
+            </aside>
 
           </div>
-
-          <div className="checkout-summary-divider" />
-
-          <div className="checkout-price-row">
-            <span>Subtotal</span>
-            <strong>{formatPrice(cartTotal)}</strong>
-          </div>
-
-          <div className="checkout-price-row">
-            <span>Delivery Fee</span>
-            <strong className="free-delivery">FREE</strong>
-          </div>
-
-          <div className="checkout-summary-divider" />
-
-          <div className="checkout-total">
-            <span>Total</span>
-            <h2>{formatPrice(total)}</h2>
-          </div>
-
-          <div className="checkout-delivery-note">
-            <FiGift />
-
-            <p>
-              Digital gifts are delivered electronically
-              to the recipient's email address.
-            </p>
-          </div>
-
-        </aside>
-
+        </form>
       </div>
     </div>
   );
