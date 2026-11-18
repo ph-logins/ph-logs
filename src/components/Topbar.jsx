@@ -1,147 +1,5 @@
-// import { useEffect, useRef, useState } from "react";
-// import axios from "axios";
-
-// import {
-//   FaShoppingCart,
-//   FaWallet,
-//   FaBars,
-// } from "react-icons/fa";
-
-// import { useBalance } from "../context/BalanceContext";
-// import { useCart } from "../context/CartContext";
-
-// import "../styles/topbar.css";
-
-// const API_URL = process.env.REACT_APP_API_URL;
-
-// const Topbar = ({ setSidebarOpen }) => {
-//   const { balance } = useBalance();
-//   const { cartCount } = useCart();
-
-//   const [username, setUsername] = useState("");
-//   const [loadingProfile, setLoadingProfile] = useState(true);
-
-//   const [displayBalance, setDisplayBalance] = useState(0);
-//   const previousBalance = useRef(0);
-
-//   // Fetch authenticated user's profile
-//   useEffect(() => {
-//     const fetchProfile = async () => {
-//       try {
-//         const token = localStorage.getItem("token");
-
-//         const { data } = await axios.get(
-//           `${API_URL}/api/user/profile`,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//           }
-//         );
-
-//         if (data.success) {
-//           setUsername(data.user.username);
-//         }
-//       } catch (error) {
-//         console.error("Failed to fetch profile:", error);
-//       } finally {
-//         setLoadingProfile(false);
-//       }
-//     };
-
-//     fetchProfile();
-//   }, []);
-
-//   // Animate wallet balance
-//   useEffect(() => {
-//     const from = previousBalance.current;
-//     const to = Number(balance) || 0;
-//     const duration = 800;
-
-//     const start = performance.now();
-//     let animationFrame;
-
-//     const animate = (time) => {
-//       const progress = Math.min(
-//         (time - start) / duration,
-//         1
-//       );
-
-//       const value = Math.round(
-//         from + (to - from) * progress
-//       );
-
-//       setDisplayBalance(value);
-
-//       if (progress < 1) {
-//         animationFrame = requestAnimationFrame(animate);
-//       } else {
-//         previousBalance.current = to;
-//       }
-//     };
-
-//     animationFrame = requestAnimationFrame(animate);
-
-//     return () => cancelAnimationFrame(animationFrame);
-//   }, [balance]);
-
-//   const formattedBalance = new Intl.NumberFormat("en-NG", {
-//     style: "currency",
-//     currency: "NGN",
-//     minimumFractionDigits: 2,
-//   }).format(displayBalance);
-
-//   return (
-//     <header className="topbar">
-
-//       <div className="topbar-left">
-//         <button
-//           className="hamburger"
-//           onClick={() => setSidebarOpen(true)}
-//         >
-//           <FaBars />
-//         </button>
-
-//         <div className="welcome-text">
-//           <h1>
-//             {loadingProfile
-//               ? "Hi..."
-//               : `Hi ${username || "there"} 👋`}
-//           </h1>
-//         </div>
-//       </div>
-
-//       <div className="topbar-right">
-
-//         <div className="wallet-box">
-//           <div>
-//             <span>Wallet Balance</span>
-//             <h3>{formattedBalance}</h3>
-//           </div>
-
-//           <FaWallet />
-//         </div>
-
-//         {/* Shopping Cart */}
-//         <div className="cart-icon-wrapper">
-//           <FaShoppingCart className="top-icon" />
-
-//           {cartCount > 0 && (
-//             <span className="cart-badge">
-//               {cartCount > 99 ? "99+" : cartCount}
-//             </span>
-//           )}
-//         </div>
-
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Topbar;
-
-
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -163,7 +21,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const Topbar = ({ setSidebarOpen }) => {
   const { balance } = useBalance();
-
+  const navigate = useNavigate();
   const {
     cart,
     cartCount,
@@ -473,13 +331,14 @@ const Topbar = ({ setSidebarOpen }) => {
                 </p>
 
                 <button
-                  className="cart-checkout-button"
-                  onClick={() => {
-                    setCartOpen(false);
-                  }}
-                >
-                  Proceed to Checkout
-                </button>
+  className="cart-checkout-button"
+  onClick={() => {
+    setCartOpen(false);
+    navigate("/checkout");
+  }}
+>
+  Proceed to Checkout
+</button>
 
                 <button
                   className="cart-continue"
