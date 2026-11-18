@@ -29,7 +29,6 @@ const Checkout = () => {
     balance,
     formattedBalance,
     loadingBalance,
-    refreshBalance,
   } = useBalance();
 
   const [formData, setFormData] = useState({
@@ -39,7 +38,6 @@ const Checkout = () => {
     message: "",
   });
 
-  const [paymentMethod] = useState("wallet");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -77,7 +75,11 @@ const Checkout = () => {
       return;
     }
 
-    if (!formData.senderEmail || !formData.recipientName || !formData.recipientEmail) {
+    if (
+      !formData.senderEmail ||
+      !formData.recipientName ||
+      !formData.recipientEmail
+    ) {
       setError("Please complete all required fields.");
       return;
     }
@@ -88,7 +90,9 @@ const Checkout = () => {
     }
 
     if (!sufficientBalance) {
-      setError("Insufficient main wallet balance. Please fund your wallet to continue.");
+      setError(
+        "Insufficient main wallet balance. Please fund your wallet to continue."
+      );
       return;
     }
 
@@ -105,11 +109,14 @@ const Checkout = () => {
           quantity: item.quantity,
           price: item.price,
         })),
+
         senderEmail: formData.senderEmail,
         recipientName: formData.recipientName,
         recipientEmail: formData.recipientEmail,
         message: formData.message,
+
         paymentMethod: "main_balance",
+
         subtotal: cartTotal,
         deliveryFee,
         total,
@@ -124,7 +131,8 @@ const Checkout = () => {
       console.error("Checkout error:", err);
 
       setError(
-        err.response?.data?.message || "Unable to process your order."
+        err.response?.data?.message ||
+        "Unable to process your order."
       );
     } finally {
       setLoading(false);
@@ -136,8 +144,12 @@ const Checkout = () => {
       <div className="checkout-page">
         <div className="checkout-empty">
           <FiGift size={42} />
+
           <h2>Your cart is empty</h2>
-          <p>Add some gifts before proceeding to checkout.</p>
+
+          <p>
+            Add some gifts before proceeding to checkout.
+          </p>
 
           <Link to="/gift" className="checkout-back-button">
             Explore Gifts
@@ -182,7 +194,9 @@ const Checkout = () => {
 
                   <div>
                     <h2>Recipient Information</h2>
-                    <p>Enter the details of the gift recipient.</p>
+                    <p>
+                      Enter the details of the gift recipient.
+                    </p>
                   </div>
                 </div>
 
@@ -272,7 +286,9 @@ const Checkout = () => {
 
                   <div>
                     <h2>Payment Method</h2>
-                    <p>Pay directly from your Numio main balance.</p>
+                    <p>
+                      Pay directly from your Numio main balance.
+                    </p>
                   </div>
                 </div>
 
@@ -284,9 +300,12 @@ const Checkout = () => {
 
                   <div className="checkout-payment-info">
                     <h3>Main Wallet Balance</h3>
+
                     <p>
                       Available balance:{" "}
-                      {loadingBalance ? "Loading..." : formattedBalance}
+                      {loadingBalance
+                        ? "Loading..."
+                        : formattedBalance}
                     </p>
                   </div>
 
@@ -297,6 +316,7 @@ const Checkout = () => {
                 {!loadingBalance && !sufficientBalance && (
                   <div className="checkout-warning">
                     <FiAlertCircle />
+
                     <span>
                       Your wallet balance is insufficient for this order.
                     </span>
@@ -305,8 +325,11 @@ const Checkout = () => {
 
                 <div className="checkout-wallet-note">
                   <FiShield />
-                  Your payment will be deducted from your main wallet balance
-                  once payment processing is connected.
+
+                  <span>
+                    Your payment will be deducted from your main wallet
+                    balance once payment processing is connected.
+                  </span>
                 </div>
               </section>
 
@@ -323,8 +346,10 @@ const Checkout = () => {
               <div className="checkout-summary-items">
 
                 {cart.map((item) => (
-                  <div className="checkout-summary-item" key={item.id}>
-
+                  <div
+                    className="checkout-summary-item"
+                    key={item.id}
+                  >
                     <img
                       src={item.image}
                       alt={item.name}
@@ -338,7 +363,6 @@ const Checkout = () => {
                     <strong>
                       {formatPrice(item.price * item.quantity)}
                     </strong>
-
                   </div>
                 ))}
 
@@ -365,6 +389,7 @@ const Checkout = () => {
 
               <div className="checkout-balance-info">
                 <span>Main Wallet Balance</span>
+
                 <strong>
                   {loadingBalance ? "Loading..." : formattedBalance}
                 </strong>
@@ -372,10 +397,19 @@ const Checkout = () => {
 
               <div className="checkout-balance-info">
                 <span>Balance After Payment</span>
-                <strong className={sufficientBalance ? "" : "checkout-insufficient"}>
+
+                <strong
+                  className={
+                    sufficientBalance
+                      ? ""
+                      : "checkout-insufficient"
+                  }
+                >
                   {loadingBalance
                     ? "Loading..."
-                    : formatPrice(Math.max(0, walletBalance - total))}
+                    : formatPrice(
+                        Math.max(0, walletBalance - total)
+                      )}
                 </strong>
               </div>
 
@@ -408,7 +442,8 @@ const Checkout = () => {
               </button>
 
               <p className="checkout-terms">
-                By placing your order, you agree to our terms and conditions.
+                By placing your order, you agree to our terms and
+                conditions.
               </p>
 
             </aside>
