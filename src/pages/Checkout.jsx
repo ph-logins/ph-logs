@@ -11,7 +11,6 @@ import {
   FiMessageSquare,
   FiShield,
   FiUser,
-  FiWallet,
 } from "react-icons/fi";
 
 import { useCart } from "../context/CartContext";
@@ -306,7 +305,7 @@ const Checkout = () => {
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
 
-              <FiWallet className="payment-option-icon" />
+              <FiCreditCard className="payment-option-icon" />
 
               <div>
                 <h4>Pay with Wallet</h4>
